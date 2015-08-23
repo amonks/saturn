@@ -1,6 +1,6 @@
 // main.js
 
-/* global $ Saturn Handlebars Analyst */
+/* global $ Saturn Chart Handlebars Analyst */
 
 'use strict';
 
@@ -16,6 +16,9 @@ $(function () {
 
       var analysis = analyst.analyze(data);
 
+      var chartData = [];
+
+      var hueIndex = 1;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -24,8 +27,13 @@ $(function () {
         for (var _iterator = analysis.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var entry = _step.value;
 
-          var html = Handlebars.templates.analysis(entry);
-          $('#data').append(html);
+          var hue = hueIndex / analysis.total * 360;
+          chartData.push({
+            value: entry.count,
+            label: entry.tag,
+            color: 'hsl(' + hue + ', 100%, 80%)'
+          });
+          hueIndex += 1;
         }
       } catch (err) {
         _didIteratorError = true;
@@ -41,6 +49,11 @@ $(function () {
           }
         }
       }
+
+      var chartOptions = [];
+      var ctx = $('#chart').get(0).getContext('2d');
+      var chart = new Chart(ctx).Doughnut(chartData, chartOptions);
+      $('chart').append(chart);
     }
   };
 
