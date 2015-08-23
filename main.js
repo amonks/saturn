@@ -16,14 +16,30 @@ $(function () {
 
       var analysis = analyst.analyze(data);
 
-      for (var tag in analysis.counts) {
-        var count = analysis.counts[tag];
-        var html = Handlebars.templates.analysis({
-          count: count,
-          tag: tag,
-          percentage: count * 100 / analysis.total | 0
-        });
-        $('#data').append(html);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = analysis.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var entry = _step.value;
+
+          var html = Handlebars.templates.analysis(entry);
+          $('#data').append(html);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator['return']) {
+            _iterator['return']();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
       }
     }
   };
@@ -68,38 +84,10 @@ $(function () {
     $('#forms').prepend(html);
 
     $('.tag').typeahead({
-      hint: true,
-      highlight: true,
-      minLength: 1
-    }, {
-      name: 'tags',
-      source: substringMatcher(analyst.analyze(saturn.data()))
+      source: analyst.analyze(saturn.data()).tags
     });
 
     listen(partial);
-  };
-
-  var substringMatcher = function substringMatcher(strs) {
-    return function findMatches(q, cb) {
-      var matches = undefined,
-          substrRegex = undefined;
-
-      // an array that will be populated with substring matches
-      matches = [];
-
-      // regex used to determine if a string contains the substring `q`
-      substrRegex = new RegExp(q, 'i');
-
-      // iterate through the pool of strings and for any string that
-      // contains the substring `q`, add it to the `matches` array
-      $.each(strs, function (i, str) {
-        if (substrRegex.test(str)) {
-          matches.push(str);
-        }
-      });
-
-      cb(matches);
-    };
   };
 
   // handle new-data form
@@ -110,7 +98,7 @@ $(function () {
       event.preventDefault();
 
       // get tag
-      var tag = form.find('.tag.tt-input').val();
+      var tag = form.find('.tag').val();
 
       // validate tag
       if (tag.length === 0) {
