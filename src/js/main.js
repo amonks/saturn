@@ -16,13 +16,13 @@ $(function () {
 
       let chartData = []
 
-      let hueIndex = 1
+      let hueIndex = 0
       for (let entry of analysis.entries()) {
-        let hue = (hueIndex / analysis.total) * 360
+        let hue = (hueIndex / analysis.tags.length) * 360
         chartData.push({
           value: entry.count,
           label: entry.tag,
-          color: 'hsl(' + hue + ', 100%, 80%)'
+          color: 'hsl(' + hue + ', 100%, 87.5%)'
         })
         hueIndex += 1
       }
@@ -32,6 +32,10 @@ $(function () {
       let chart = new Chart(ctx).Doughnut(chartData, chartOptions)
       $('chart').append(chart)
     }
+  }
+
+  let streamgraph = function (data) {
+
   }
 
   // play a sound
