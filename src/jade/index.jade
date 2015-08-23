@@ -1,0 +1,32 @@
+html
+  head
+    title Tag Time
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+  body
+    // main container
+    #main.container
+      :marked
+        # Timetagger!
+        
+        Every once in a while, I'll ask you for a tag. Describe what you're doing at the exact moment the notification comes up. Don't cheat.
+        
+        For now, just forget this tab is even open.
+      #forms
+      #analysis.hidden
+        h2 
+          | What you did:
+          = ' '
+          button#clear.btn.btn-danger Clear
+
+        #data
+      
+    // external scripts
+    script(src='https://code.jquery.com/jquery-2.1.4.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js')
+    script(src='poisson-process.js')
+    //- script(src='bootstrap3-typeahead.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js')
+    script(src='templates.js')
+    script(src='saturn.js')
+    script(src='analyst.js')
+    script(src='main.js')
