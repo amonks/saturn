@@ -18,7 +18,7 @@ $(function () {
 
       var chartData = [];
 
-      var hueIndex = 1;
+      var hueIndex = 0;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -27,11 +27,11 @@ $(function () {
         for (var _iterator = analysis.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var entry = _step.value;
 
-          var hue = hueIndex / analysis.total * 360;
+          var hue = hueIndex / analysis.tags.length * 360;
           chartData.push({
             value: entry.count,
             label: entry.tag,
-            color: 'hsl(' + hue + ', 100%, 80%)'
+            color: 'hsl(' + hue + ', 100%, 87.5%)'
           });
           hueIndex += 1;
         }
@@ -56,6 +56,8 @@ $(function () {
       $('chart').append(chart);
     }
   };
+
+  var streamgraph = function streamgraph(data) {};
 
   // play a sound
   var snd = false;
