@@ -1,6 +1,6 @@
 // main.js
 
-/* global $ Saturn Handlebars Analyst */
+/* global $ Saturn Chart Handlebars Analyst */
 
 $(function () {
 
@@ -14,10 +14,23 @@ $(function () {
 
       let analysis = analyst.analyze(data)
 
+      let chartData = []
+
+      let hueIndex = 1
       for (let entry of analysis.entries()) {
-        let html = Handlebars.templates.analysis(entry)
-        $('#data').append(html)
+        let hue = (hueIndex / analysis.total) * 360
+        chartData.push({
+          value: entry.count,
+          label: entry.tag,
+          color: 'hsl(' + hue + ', 100%, 80%)'
+        })
+        hueIndex += 1
       }
+
+      let chartOptions = []
+      let ctx = $('#chart').get(0).getContext('2d')
+      let chart = new Chart(ctx).Doughnut(chartData, chartOptions)
+      $('chart').append(chart)
     }
   }
 
