@@ -19,7 +19,7 @@ $(function () {
         let html = Handlebars.templates.analysis({
           count: count,
           tag: tag,
-          percentage: (count * 100) / analysis.total
+          percentage: (count * 100) / analysis.total | 0
         })
         $('#data').append(html)
       }
@@ -136,7 +136,7 @@ $(function () {
   saturn.start({
     prompt: ask,
     minutes: 40,
-    askFirst: true
+    askFirst: false
   })
 
   render(saturn.data())
