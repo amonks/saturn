@@ -21,7 +21,7 @@ $(function () {
         var html = Handlebars.templates.analysis({
           count: count,
           tag: tag,
-          percentage: count * 100 / analysis.total
+          percentage: count * 100 / analysis.total | 0
         });
         $('#data').append(html);
       }
