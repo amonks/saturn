@@ -176,7 +176,6 @@
 
     matcher: function (item) {
     var it = this.displayText(item);
-      debugger
       return ~it.toLowerCase().indexOf(this.query.toLowerCase());
     },
 

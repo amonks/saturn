@@ -14,13 +14,8 @@ $(function () {
 
       let analysis = analyst.analyze(data)
 
-      for (let tag in analysis.counts) {
-        let count = analysis.counts[tag]
-        let html = Handlebars.templates.analysis({
-          count: count,
-          tag: tag,
-          percentage: (count * 100) / analysis.total | 0
-        })
+      for (let entry of analysis.entries()) {
+        let html = Handlebars.templates.analysis(entry)
         $('#data').append(html)
       }
     }
@@ -66,37 +61,10 @@ $(function () {
     $('#forms').prepend(html)
 
     $('.tag').typeahead({
-      hint: true,
-      highlight: true,
-      minLength: 1
-    }, {
-      name: 'tags',
-      source: substringMatcher(analyst.analyze(saturn.data()))
+      source: analyst.analyze(saturn.data()).tags
     })
 
     listen(partial)
-  }
-
-  let substringMatcher = function (strs) {
-    return function findMatches (q, cb) {
-      let matches, substrRegex
-
-      // an array that will be populated with substring matches
-      matches = []
-
-      // regex used to determine if a string contains the substring `q`
-      substrRegex = new RegExp(q, 'i')
-
-      // iterate through the pool of strings and for any string that
-      // contains the substring `q`, add it to the `matches` array
-      $.each(strs, function (i, str) {
-        if (substrRegex.test(str)) {
-          matches.push(str)
-        }
-      })
-
-      cb(matches)
-    }
   }
 
   // handle new-data form
@@ -107,7 +75,7 @@ $(function () {
       event.preventDefault()
 
       // get tag
-      let tag = form.find('.tag.tt-input').val()
+      let tag = form.find('.tag').val()
 
       // validate tag
       if (tag.length === 0) {

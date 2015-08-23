@@ -9,23 +9,38 @@ window.Analyst = function () {
   // main function
   API.analyze = function (data) {
     if (data.length > 0) {
-      let out = {
+      let analysis = {
         total: data.length,
-        counts: {},
-        tags: []
-      }
-      for (let datum of data) {
-        let tag = datum.tag
-        if (out.counts[tag]) {
-          out.counts[tag] = out.counts[tag] + 1
-        } else {
-          out.counts[tag] = 1
-          out.tags.push(tag)
+        data: {},
+        tags: [],
+        entries: function * () {
+          for (let key of Object.keys(analysis.data)) {
+            yield analysis.data[key]
+          }
         }
       }
-      return out
+
+      // populate data object and tags array
+      for (let datum of data) {
+        let tag = datum.tag
+        if (analysis.data[tag]) {
+          analysis.data[tag].count = analysis.data[tag].count + 1
+        } else {
+          analysis.data[tag] = {
+            tag: tag,
+            count: 1
+          }
+          analysis.tags.push(tag)
+        }
+      }
+
+      // add percentages
+      for (let key of Object.keys(analysis.data)) {
+        let datum = analysis.data[key]
+        datum.percentage = 100 * datum.count / analysis.total
+      }
+      return analysis
     }
   }
-
   return API
 }
