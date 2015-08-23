@@ -139,7 +139,7 @@ $(function () {
   saturn.start({
     prompt: ask,
     minutes: 40,
-    askFirst: true
+    askFirst: false
   });
 
   render(saturn.data());
