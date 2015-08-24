@@ -9,6 +9,7 @@ $(function () {
   var render = function render(data) {
     console.log('rendering');
     $('#analysis').addClass('hidden');
+
     $('#data').empty();
 
     if (data.length > 0) {
@@ -28,6 +29,10 @@ $(function () {
           var entry = _step.value;
 
           var hue = hueIndex / analysis.tags.length * 360;
+
+          var html = Handlebars.templates.row(entry);
+          $('#data').append(html);
+
           chartData.push({
             y: entry.count,
             name: entry.tag,
@@ -128,9 +133,11 @@ $(function () {
     var html = Handlebars.templates.form(partial);
     $('#forms').prepend(html);
 
-    $('.tag').typeahead({
-      source: analyst.analyze(saturn.data()).tags
-    });
+    if (saturn.data().length > 0) {
+      $('.tag').typeahead({
+        source: analyst.analyze(saturn.data()).tags
+      });
+    }
 
     listen(partial);
   };
