@@ -7,6 +7,7 @@ $(function () {
   let render = function (data) {
     console.log('rendering')
     $('#analysis').addClass('hidden')
+
     $('#data').empty()
 
     if (data.length > 0) {
@@ -19,6 +20,10 @@ $(function () {
       let hueIndex = 0
       for (let entry of analysis.entries()) {
         let hue = (hueIndex / analysis.tags.length) * 360
+
+        let html = Handlebars.templates.row(entry)
+        $('#data').append(html)
+
         chartData.push({
           y: entry.count,
           name: entry.tag,
@@ -104,9 +109,11 @@ $(function () {
     let html = Handlebars.templates.form(partial)
     $('#forms').prepend(html)
 
-    $('.tag').typeahead({
-      source: analyst.analyze(saturn.data()).tags
-    })
+    if (saturn.data().length > 0) {
+      $('.tag').typeahead({
+        source: analyst.analyze(saturn.data()).tags
+      })
+    }
 
     listen(partial)
   }
@@ -148,7 +155,7 @@ $(function () {
   saturn.start({
     prompt: ask,
     minutes: 40,
-    askFirst: false
+    askFirst: true
   })
 
   render(saturn.data())

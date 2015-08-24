@@ -1,7 +1,7 @@
 html
   head
     title Saturn
-    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet' href='bootstrap.min.css')
   body
     // main container
     #main.container
@@ -20,16 +20,26 @@ html
           
         #chart(width='100%' height='400px')
 
-        #data
+        table.table
+          thead
+            tr
+              th
+              th count
+              th 
+          tbody#data
+            tr
+              td data!
+              td data!
+              td data!
       
     // external scripts
     script(src='browser-polyfill.js')
-    script(src='https://code.jquery.com/jquery-2.1.4.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.8/highcharts.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js')
+    script(src='jquery-2.1.4.js')
+    script(src='highcharts.js')
+    script(src='bootstrap.js')
     script(src='poisson-process.js')
     script(src='bootstrap3-typeahead.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js')
+    script(src='handlebars.min.js')
     script(src='templates.js')
     script(src='saturn.js')
     script(src='analyst.js')
