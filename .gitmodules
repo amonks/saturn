@@ -1,4 +1,0 @@
-[submodule "_site"]
-	path = _site
-	url = git@github.com:amonks/saturn.git
-	branch = gh-pages
