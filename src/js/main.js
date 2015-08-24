@@ -81,7 +81,7 @@ $(function () {
   // export data
   let exportData = function () {
     console.log('exporting')
-    Save().download_object(saturn.data(), 'tags.json')
+    Save().download_object(saturn.data(), 'saturn-tags.json')
   }
 
   // show browser notification
