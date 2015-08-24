@@ -105,7 +105,7 @@ $(function () {
   // export data
   var exportData = function exportData() {
     console.log('exporting');
-    Save().download_object(saturn.data(), 'tags.json');
+    Save().download_object(saturn.data(), 'saturn-tags.json');
   };
 
   // show browser notification
