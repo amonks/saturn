@@ -18,16 +18,15 @@ html
           = ' '
           button#clear.btn.btn-danger Clear
           
-        canvas#chart(width='200px' height='200px')
+        #chart(width='100%' height='400px')
 
         #data
       
     // external scripts
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js')
     script(src='browser-polyfill.js')
     script(src='https://code.jquery.com/jquery-2.1.4.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.8/highcharts.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js')
     script(src='poisson-process.js')
     script(src='bootstrap3-typeahead.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js')

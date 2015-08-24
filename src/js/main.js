@@ -1,6 +1,6 @@
 // main.js
 
-/* global $ Saturn Chart Handlebars Analyst */
+/* global $ Saturn Highcharts Handlebars Analyst */
 
 $(function () {
 
@@ -20,22 +20,49 @@ $(function () {
       for (let entry of analysis.entries()) {
         let hue = (hueIndex / analysis.tags.length) * 360
         chartData.push({
-          value: entry.count,
-          label: entry.tag,
+          y: entry.count,
+          name: entry.tag,
           color: 'hsl(' + hue + ', 100%, 87.5%)'
         })
         hueIndex += 1
       }
-
-      let chartOptions = []
-      let ctx = $('#chart').get(0).getContext('2d')
-      let chart = new Chart(ctx).Doughnut(chartData, chartOptions)
-      $('chart').append(chart)
+      chart(chartData, $('#chart'))
     }
   }
 
-  let streamgraph = function (data) {
-
+  let chart = function (data, container) {
+    container.highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'What you\'ve been doing'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          }
+        }
+      },
+      series: [{
+        name: 'Tags',
+        colorByPoint: true,
+        data: data
+      }]
+    })
   }
 
   // play a sound
