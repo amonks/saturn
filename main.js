@@ -1,6 +1,6 @@
 // main.js
 
-/* global $ Saturn Highcharts Handlebars Analyst Save */
+/* global $ Saturn Highcharts Handlebars Analyst Save FileReader */
 
 'use strict';
 
@@ -18,7 +18,6 @@ $(function () {
       var analysis = analyst.analyze(data);
 
       var chartData = [];
-
       var hueIndex = 0;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -30,6 +29,7 @@ $(function () {
 
           var hue = hueIndex / analysis.tags.length * 360;
           entry.color = 'hsl(' + hue + ', 100%, 87.5%)';
+          hueIndex += 1;
 
           var html = Handlebars.templates.row(entry);
           $('#data').append(html);
@@ -39,7 +39,6 @@ $(function () {
             name: entry.tag,
             color: entry.color
           });
-          hueIndex += 1;
         }
       } catch (err) {
         _didIteratorError = true;
@@ -176,11 +175,26 @@ $(function () {
     });
   };
 
+  // read a file
+  var importFile = function importFile(e) {
+    var file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var contents = e.target.result;
+      saturn['import'](JSON.parse(contents));
+    };
+    reader.readAsText(file);
+  };
+
   var saturn = new Saturn();
   var analyst = new Analyst();
 
   saturn.subscribe(render);
 
+  $('#import').on('change', importFile);
   $('#clear').click(saturn.clear);
   $('#exportButton').click(exportData);
 
