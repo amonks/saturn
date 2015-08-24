@@ -1,6 +1,7 @@
 // gulpfile.js
 
 var gulp = require('gulp')
+var debug = require('gulp-debug')
 
 var jade = require('gulp-jade')
 var wrap = require('gulp-wrap')
@@ -9,7 +10,7 @@ var concat = require('gulp-concat')
 var declare = require('gulp-declare')
 var del = require('del')
 var mkpath = require('mkpath')
-var gh_pages = require('gulp-gh-pages')
+var ghpages = require('gulp-gh-pages')
 var plumber = require('gulp-plumber')
 var babel = require('gulp-babel')
 var sourcemaps = require('gulp-sourcemaps')
@@ -58,14 +59,15 @@ gulp.task('hbs', function () {
 
 gulp.task('gh-pages', function () {
   gulp.src('./dist/**/*.*')
-    .pipe(gh_pages())
+    .pipe(debug({title: 'ghpages:'}))
+    .pipe(ghpages())
 })
 
 gulp.task('cleanup', function () {
   del(['./.publish'])
 })
 
-gulp.task('watch-nobuild', function () {
+gulp.task('watcher', function () {
   gulp.watch('src/js/*.js', ['js'])
   gulp.watch('src/jade/*.jade', ['jade'])
   gulp.watch('src/hbs/*.hbs', ['hbs'])
@@ -73,7 +75,7 @@ gulp.task('watch-nobuild', function () {
 })
 
 gulp.task('build', ['prepare', 'pub', 'jade', 'js', 'hbs'])
-gulp.task('watch', ['build', 'watch-nobuild'])
+gulp.task('watch', ['build', 'watcher'])
 gulp.task('deploy', ['gh-pages'])
 
 gulp.task('default', ['build'])
