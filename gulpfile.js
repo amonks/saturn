@@ -14,6 +14,7 @@ var ghpages = require('gulp-gh-pages')
 var plumber = require('gulp-plumber')
 var babel = require('gulp-babel')
 var sourcemaps = require('gulp-sourcemaps')
+var sass = require('gulp-sass')
 
 gulp.task('prepare', function () {
   mkpath('dist', function (err) {
@@ -25,7 +26,7 @@ gulp.task('prepare', function () {
 })
 
 gulp.task('js', function () {
-  gulp.src('./src/js/*.js')
+  gulp.src('./src/js/**/*.js')
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(babel())
@@ -40,8 +41,14 @@ gulp.task('pub', function () {
 
 gulp.task('jade', function () {
   var locals = {}
-  gulp.src('./src/jade/*.jade')
+  gulp.src('./src/jade/**/*.jade')
     .pipe(jade({ locals: locals }))
+    .pipe(gulp.dest('dist/'))
+})
+
+gulp.task('scss', function () {
+  gulp.src('./src/scss/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist/'))
 })
 
@@ -71,10 +78,11 @@ gulp.task('watcher', function () {
   gulp.watch('src/js/*.js', ['js'])
   gulp.watch('src/jade/*.jade', ['jade'])
   gulp.watch('src/hbs/*.hbs', ['hbs'])
+  gulp.watch('src/scss/*.scss', ['scss'])
   gulp.watch('pub/**/*.*', ['pub'])
 })
 
-gulp.task('build', ['prepare', 'pub', 'jade', 'js', 'hbs'])
+gulp.task('build', ['prepare', 'pub', 'jade', 'js', 'scss', 'hbs'])
 gulp.task('watch', ['build', 'watcher'])
 gulp.task('deploy', ['gh-pages'])
 

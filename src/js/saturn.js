@@ -37,10 +37,19 @@ window.Saturn = function () {
     return data
   }
 
+  // import data
+  API.import = function (data) {
+    for (let datum of data) {
+      API.add(datum)
+    }
+  }
+
   // add datapoint
   API.add = function (datum) {
     if (validate(datum)) {
       pushDatum(datum)
+    } else {
+      console.log('datapoint exists')
     }
   }
 
@@ -48,12 +57,23 @@ window.Saturn = function () {
   let validate = function (datum) {
     if (datum.tag.length === 0 ||
       datum.id.length === 0 ||
-      datum.timestamp.length === 0
+      datum.timestamp.length === 0 ||
+      datum_exists(datum)
     ) {
       return false
     } else {
       return true
     }
+  }
+
+  // check if a datapoint is in the data
+  let datum_exists = function (datum) {
+    for (let entry of API.data()) {
+      if (datum.id === entry.id) {
+        return true
+      }
+    }
+    return false
   }
 
   // push datum to localStorage

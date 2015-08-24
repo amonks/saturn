@@ -1,6 +1,6 @@
 // main.js
 
-/* global $ Saturn Highcharts Handlebars Analyst Save */
+/* global $ Saturn Highcharts Handlebars Analyst Save FileReader */
 
 $(function () {
 
@@ -16,11 +16,11 @@ $(function () {
       let analysis = analyst.analyze(data)
 
       let chartData = []
-
       let hueIndex = 0
       for (let entry of analysis.entries()) {
         let hue = (hueIndex / analysis.tags.length) * 360
         entry.color = 'hsl(' + hue + ', 100%, 87.5%)'
+        hueIndex += 1
 
         let html = Handlebars.templates.row(entry)
         $('#data').append(html)
@@ -30,7 +30,6 @@ $(function () {
           name: entry.tag,
           color: entry.color
         })
-        hueIndex += 1
       }
       chart(chartData, $('#chart'))
     }
@@ -152,11 +151,27 @@ $(function () {
     })
   }
 
+  // read a file
+  let importFile = function (e) {
+    var file = e.target.files[0]
+    if (!file) {
+      return
+    }
+    var reader = new FileReader()
+    reader.onload = function (e) {
+      var contents = e.target.result
+      saturn.import(JSON.parse(contents))
+    }
+    reader.readAsText(file)
+
+  }
+
   let saturn = new Saturn()
   let analyst = new Analyst()
 
   saturn.subscribe(render)
 
+  $('#import').on('change', importFile)
   $('#clear').click(saturn.clear)
   $('#exportButton').click(exportData)
 
