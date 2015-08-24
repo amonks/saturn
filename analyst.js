@@ -147,7 +147,7 @@ window.Analyst = function () {
             var key = _step3.value;
 
             var datum = analysis.data[key];
-            datum.percentage = 100 * datum.count / analysis.total;
+            datum.percentage = Math.round(100 * datum.count / analysis.total);
           }
         } catch (err) {
           _didIteratorError3 = true;
