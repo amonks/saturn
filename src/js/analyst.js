@@ -37,7 +37,7 @@ window.Analyst = function () {
       // add percentages
       for (let key of Object.keys(analysis.data)) {
         let datum = analysis.data[key]
-        datum.percentage = 100 * datum.count / analysis.total
+        datum.percentage = Math.round(100 * datum.count / analysis.total)
       }
       return analysis
     }
