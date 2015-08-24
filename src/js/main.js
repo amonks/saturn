@@ -1,6 +1,6 @@
 // main.js
 
-/* global $ Saturn Highcharts Handlebars Analyst */
+/* global $ Saturn Highcharts Handlebars Analyst Save */
 
 $(function () {
 
@@ -20,6 +20,7 @@ $(function () {
       let hueIndex = 0
       for (let entry of analysis.entries()) {
         let hue = (hueIndex / analysis.tags.length) * 360
+        entry.color = 'hsl(' + hue + ', 100%, 87.5%)'
 
         let html = Handlebars.templates.row(entry)
         $('#data').append(html)
@@ -27,7 +28,7 @@ $(function () {
         chartData.push({
           y: entry.count,
           name: entry.tag,
-          color: 'hsl(' + hue + ', 100%, 87.5%)'
+          color: entry.color
         })
         hueIndex += 1
       }
@@ -76,6 +77,12 @@ $(function () {
     console.log('pinging')
     snd = snd || new window.Audio('ping.mp3')
     snd.play()
+  }
+
+  // export data
+  let exportData = function () {
+    console.log('exporting')
+    Save().download_object(saturn.data(), 'tags.json')
   }
 
   // show browser notification
@@ -151,6 +158,7 @@ $(function () {
   saturn.subscribe(render)
 
   $('#clear').click(saturn.clear)
+  $('#exportButton').click(exportData)
 
   saturn.start({
     prompt: ask,

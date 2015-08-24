@@ -7,9 +7,9 @@ html
     #main.container
       :marked
         # Saturn!
-        
+
         Every once in a while, I'll ask you for a tag. Describe what you're doing at the exact moment the notification comes up. Don't cheat.
-        
+
         For now, just forget this tab is even open.
       #forms
       #analysis.hidden
@@ -17,7 +17,8 @@ html
           | What you did:
           = ' '
           button#clear.btn.btn-danger Clear
-          
+          button#exportButton.btn.btn-default Export
+
         #chart(width='100%' height='400px')
 
         table.table
@@ -31,11 +32,12 @@ html
               td data!
               td data!
               td data!
-      
+
     // external scripts
     script(src='browser-polyfill.js')
     script(src='jquery-2.1.4.js')
     script(src='highcharts.js')
+    script(src='save.js')
     script(src='bootstrap.js')
     script(src='poisson-process.js')
     script(src='bootstrap3-typeahead.js')
