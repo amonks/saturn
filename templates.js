@@ -37,7 +37,5 @@ this["Handlebars"]["templates"]["row"] = Handlebars.template({"compiler":[6,">= 
     + alias3(((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"color","hash":{},"data":data}) : helper)))
     + "; width: "
     + alias3(((helper = (helper = helpers.percentage || (depth0 != null ? depth0.percentage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"percentage","hash":{},"data":data}) : helper)))
-    + "%; color: #333\">\n        "
-    + alias3(((helper = (helper = helpers.percentage || (depth0 != null ? depth0.percentage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"percentage","hash":{},"data":data}) : helper)))
-    + "%\n      </div>\n    </div>\n  </td>\n</tr>\n";
+    + "%;\">\n      </div>\n    </div>\n  </td>\n</tr>\n";
 },"useData":true});
