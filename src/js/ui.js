@@ -3,7 +3,6 @@
 /* global $ Saturn Highcharts Handlebars Analyst Save FileReader */
 
 $(function () {
-
   let render = function (data) {
     console.log('rendering')
     $('#analysis').addClass('hidden')
@@ -74,7 +73,7 @@ $(function () {
   let snd = false
   let ping = function () {
     console.log('pinging')
-    snd = snd || new window.Audio('ping.mp3')
+    snd = snd || new window.Audio('ui/ping.mp3')
     snd.play()
   }
 
@@ -86,6 +85,8 @@ $(function () {
 
   // show browser notification
   let notify = function (text) {
+    ipc.send('notify')
+
     console.log('notify: ', text)
     // Let's check if the browser supports notifications
     if (!('Notification' in window)) {
@@ -168,12 +169,15 @@ $(function () {
 
   let saturn = new Saturn()
   let analyst = new Analyst()
-
+  let ipc = require('ipc')
   saturn.subscribe(render)
 
   $('#import').on('change', importFile)
   $('#clear').click(saturn.clear)
   $('#exportButton').click(exportData)
+  $('#quit').click(function (e) {
+    ipc.send('terminate')
+  })
 
   saturn.start({
     prompt: ask,

@@ -25,11 +25,11 @@
   'use strict';
 
   // CommonJS module is defined
-  if (typeof module !== 'undefined' && module.exports) {
+  if (typeof module !== 'undefined' && module.exports && false) {
     module.exports = factory(require('jquery'));
   }
   // AMD module is defined
-  else if (typeof define === 'function' && define.amd) {
+  else if (typeof define === 'function' && define.amd && false) {
     define(['jquery'], function ($) {
       return factory ($);
     });

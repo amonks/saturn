@@ -9,19 +9,18 @@ var handlebars = require('gulp-handlebars')
 var concat = require('gulp-concat')
 var declare = require('gulp-declare')
 var del = require('del')
-var mkpath = require('mkpath')
 var ghpages = require('gulp-gh-pages')
 var plumber = require('gulp-plumber')
 var babel = require('gulp-babel')
 var sourcemaps = require('gulp-sourcemaps')
 var sass = require('gulp-sass')
 
-gulp.task('prepare', function () {
-  mkpath('dist', function (err) {
-    if (err) throw err
-  })
+gulp.task('prepare', function (callback) {
   del([
-    './dist/**/*.*'
+    './dist/'
+  ])
+  del([
+    './app-dist'
   ])
 })
 
@@ -31,12 +30,19 @@ gulp.task('js', function () {
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('dist/ui/'))
+})
+
+gulp.task('copy-app', ['build'], function () {
+  gulp.src('./src/app/**/*.*')
+    .pipe(gulp.dest('app-dist/'))
+  gulp.src('./dist/**/*.*')
+    .pipe(gulp.dest('app-dist/'))
 })
 
 gulp.task('pub', function () {
-  gulp.src('./pub/*')
-    .pipe(gulp.dest('dist/'))
+  gulp.src('./pub/**/*.*')
+    .pipe(gulp.dest('dist/ui'))
 })
 
 gulp.task('jade', function () {
@@ -49,7 +55,7 @@ gulp.task('jade', function () {
 gulp.task('scss', function () {
   gulp.src('./src/scss/**/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('dist/ui/'))
 })
 
 gulp.task('hbs', function () {
@@ -61,29 +67,25 @@ gulp.task('hbs', function () {
       noRedeclare: true
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('dist/ui/'))
 })
 
-gulp.task('gh-pages', function () {
+gulp.task('gh-pages', ['build'], function () {
   gulp.src('./dist/**/*.*')
     .pipe(debug({title: 'ghpages:'}))
     .pipe(ghpages())
 })
 
-gulp.task('cleanup', function () {
-  del(['./.publish'])
-})
-
-gulp.task('watcher', function () {
+gulp.task('watch', ['build'], function () {
   gulp.watch('src/js/*.js', ['js'])
   gulp.watch('src/jade/*.jade', ['jade'])
   gulp.watch('src/hbs/*.hbs', ['hbs'])
   gulp.watch('src/scss/*.scss', ['scss'])
-  gulp.watch('pub/**/*.*', ['pub'])
+  gulp.watch('pub/**/*.*', ['copy'])
 })
 
-gulp.task('build', ['prepare', 'pub', 'jade', 'js', 'scss', 'hbs'])
-gulp.task('watch', ['build', 'watcher'])
+gulp.task('build', ['jade', 'pub', 'js', 'scss', 'hbs'])
 gulp.task('deploy', ['gh-pages'])
+gulp.task('app', ['copy-app'])
 
 gulp.task('default', ['build'])

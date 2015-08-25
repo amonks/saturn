@@ -28,10 +28,10 @@ SOFTWARE.
 // *****************************
 (function (root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
+  if (typeof define === 'function' && define.amd || false) {
     // AMD. Register as an anonymous module.
     define(['exports'], factory);
-  } else if (typeof exports === 'object') {
+  } else if (typeof exports === 'object' || false) {
     // CommonJS & Node
     factory(exports);
   } else {

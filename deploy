@@ -1,16 +1,24 @@
 #! /bin/bash
 
+gulp prepare
 gulp build
-mkdir -p _site
-cd _site
-git init
-git remote add origin git@github.com:amonks/saturn.git
-git pull origin gh-pages
-git checkout gh-pages
-rm -rf ./*
-cp ../dist/* ./
-git add --all .
-git commit -am 'update gh-pages'
-git push --force
+
+# mkdir -p _site
+# cd _site
+# git init
+# git remote add origin git@github.com:amonks/saturn.git
+# git pull origin gh-pages
+# git checkout gh-pages
+# rm -rf ./*
+# cp -R ../dist/* ./
+# git add --all .
+# git commit -am 'update gh-pages'
+# git push --force
+# cd ..
+# rm -rf _site
+
+gulp app
+cd app-dist
+npm install
+npm run build
 cd ..
-rm -rf _site

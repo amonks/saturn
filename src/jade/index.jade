@@ -1,8 +1,8 @@
 html
   head
     title Saturn
-    link(rel='stylesheet' href='bootstrap.min.css')
-    link(rel='stylesheet' href='style.css')
+    link(rel='stylesheet' href='ui/bootstrap.min.css')
+    link(rel='stylesheet' href='ui/style.css')
   body
     // main container
     #main.container
@@ -10,8 +10,6 @@ html
         # Saturn!
 
         Every once in a while, I'll ask you for a tag. Describe what you're doing at the exact moment the notification comes up. Don't cheat.
-        
-        For now, just forget this tab is even open.
         
       #forms
       
@@ -22,26 +20,30 @@ html
       button#exportButton.btn.btn-default Export
       = ' '
       button#clear.btn.btn-danger Clear
+      = ' '
         
       #analysis.hidden
-        #chart(width='100%' height='400px')
+        #chart(width='100%' height='200px')
 
         table.table
           tbody#data
             tr
               td data!
               td data!
+              
+      button#quit.btn.btn-danger Quit
 
+    script(type='text/javascript').
+      window.$ = window.jquery = window.jQuery = require(__dirname + '/ui/jquery-2.1.4.js')
     // external scripts
-    script(src='browser-polyfill.js')
-    script(src='jquery-2.1.4.js')
-    script(src='highcharts.js')
-    script(src='save.js')
-    script(src='bootstrap.js')
-    script(src='poisson-process.js')
-    script(src='bootstrap3-typeahead.js')
-    script(src='handlebars.min.js')
-    script(src='templates.js')
-    script(src='saturn.js')
-    script(src='analyst.js')
-    script(src='main.js')
+    script(src='ui/browser-polyfill.js')
+    script(src='ui/highcharts.js')
+    script(src='ui/save.js')
+    script(src='ui/bootstrap.js')
+    script(src='ui/poisson-process.js')
+    script(src='ui/bootstrap3-typeahead.js')
+    script(src='ui/handlebars.min.js')
+    script(src='ui/templates.js')
+    script(src='ui/saturn.js')
+    script(src='ui/analyst.js')
+    script(src='ui/ui.js')

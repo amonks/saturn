@@ -3,3 +3,4 @@ dist/
 node_modules/
 .publish/
 _site/
+app-dist/
