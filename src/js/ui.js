@@ -4,7 +4,7 @@
 
 $(function () {
   let render = function (data) {
-    console.log('rendering')
+    console.log('rendering', saturn.data())
     $('#analysis').addClass('hidden')
 
     $('#data').empty()
@@ -181,7 +181,7 @@ $(function () {
 
   saturn.start({
     prompt: ask,
-    minutes: 40,
+    minutes: 10,
     askFirst: false
   })
 

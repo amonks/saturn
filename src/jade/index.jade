@@ -35,8 +35,8 @@ html
 
     script(type='text/javascript').
       window.$ = window.jquery = window.jQuery = require(__dirname + '/ui/jquery-2.1.4.js')
+      require('babel/polyfill')
     // external scripts
-    script(src='ui/browser-polyfill.js')
     script(src='ui/highcharts.js')
     script(src='ui/save.js')
     script(src='ui/bootstrap.js')
