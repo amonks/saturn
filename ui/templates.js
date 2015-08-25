@@ -20,7 +20,7 @@ this["Handlebars"]["templates"]["form"] = Handlebars.template({"compiler":[6,">=
 
   return "<form id=\""
     + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\" class=\"tag-form form-inline\">\n  <div class=\"form-group\">\n    <label for=\"tag\">What r u doing?</label>\n    <input type=\"text\" name=\"tag\" class=\"form-control tag\" placeholder=\"hangin\">\n  </div>\n  <input type=\"hidden\" class=\"form-control timestamp\" name=\"timestamp\" value=\""
+    + "\" class=\"tag-form form-inline well\">\n  <div class=\"form-group\">\n    <label for=\"tag\">What r u doing?</label>\n    <input type=\"text\" name=\"tag\" class=\"form-control tag\" placeholder=\"hangin\">\n  </div>\n  <input type=\"hidden\" class=\"form-control timestamp\" name=\"timestamp\" value=\""
     + alias3(((helper = (helper = helpers.timestamp || (depth0 != null ? depth0.timestamp : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"timestamp","hash":{},"data":data}) : helper)))
     + "\">\n  <input type=\"submit\" class=\"btn btn-default\" name=\"submit\" value=\"Submit\">\n</form>\n";
 },"useData":true});
