@@ -191,12 +191,16 @@ $(function () {
 
   var saturn = new Saturn();
   var analyst = new Analyst();
+  var ipc = require('ipc');
 
   saturn.subscribe(render);
 
   $('#import').on('change', importFile);
   $('#clear').click(saturn.clear);
   $('#exportButton').click(exportData);
+  $('#quit').click(function (e) {
+    ipc.send('terminate');
+  });
 
   saturn.start({
     prompt: ask,
