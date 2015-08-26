@@ -181,7 +181,7 @@ $(function () {
 
   saturn.start({
     prompt: ask,
-    minutes: 10,
+    minutes: 40,
     askFirst: false
   })
 
